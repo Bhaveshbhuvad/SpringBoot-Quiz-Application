@@ -126,6 +126,15 @@ public class MainController {
         model.addAttribute("question", question);
         return "update_question.html";
     }
+	//After uppdated details save data
+	@PostMapping("/saveQuestion")
+	public String UpdatedQuestion(@ModelAttribute("question") Question question,Model m)
+	{
+		questionService.saveQuestion(question);
+		List<Question> qList = qService.ViewtQuestions();
+		m.addAttribute("qList", qList);
+		return "viewquestion.html";
+	}
 
     @GetMapping("/deleteQuestion/{quesId}")
     public String deleteQuestion(@PathVariable(value = "quesId") int quesId, Model m) {
